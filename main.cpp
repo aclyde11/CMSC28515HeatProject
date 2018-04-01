@@ -1,23 +1,25 @@
 #include <iostream>
 #include <Eigen/Dense>
-
-using Eigen::MatrixXd;
+#include "TriDiagMatrix.h"
 
 int main() {
-  std::cout << "Hello, World!" << std::endl;
-  MatrixXd m(2,2);
-  Eigen::Vector2d v;
-  v << 1, 2;
-  m(0,0) = 2;
-  m(0,1) = 1;
-  m(1,0) = 2;
-  m(1,1) = 3;
+  NumVec x(5), y(5);
+  x << 1,2,3,4,5;
+  y << 5,4,3,2,1;
 
+  std::cout << (x + 2*y).format(CleanFmt) << std::endl;
 
+  TriDiagMatrix A(5,5);
+  A << 1, 1, 0, 0, 0,
+       1, 2, 2, 0, 0,
+       0, 2, 3, 3, 0,
+       0, 0, 3, 4, 4,
+       0, 0, 0, 4, 5;
 
-  std::cout << "m = " << m << std::endl;
-  std::cout << "v = " << v << std::endl;
+  std::cout << std::endl;
+  std::cout << (A * x).format(CleanFmt) << std::endl;
 
-  std::cout << "m*v = " << (m * v) << std::endl;
+  testTriDiagSolver();
+
   return 0;
 }
